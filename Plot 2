@@ -1,0 +1,14 @@
+if(!exists("nei")){
+  nei <- readRDS("./data/summarySCC_PM25.rds")
+}
+if(!exists("scc")){
+  scc <- readRDS("./data/Source_Classification_Code.rds")
+}
+
+subset <- nei[nei$fips=="24510", ]
+
+aggregatedTBY <- aggregate(Emissions ~ year, subset, sum)
+
+png('plot2.png')
+barplot(height=aggregatedTBY$Emissions, names.arg=aggregatedTBY$year, xlab="years", ylab=expression('total emission'),main=expression('Total'))
+dev.off()
