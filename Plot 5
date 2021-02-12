@@ -1,0 +1,14 @@
+library(ggplot2)
+
+subset <- nei[nei$fips=="24510" & nei$type=="ON-ROAD",  ]
+
+aggregatedTBY <- aggregate(Emissions ~ year, subset, sum)
+
+png("plot5.png", width=840, height=480)
+g <- ggplot(aggregatedTBY, aes(factor(year), Emissions))
+g <- g + geom_bar(stat="identity") +
+  xlab("year") +
+  ylab(expression('Total PM'"Emissions")) +
+  ggtitle('Total Emissions in Baltimore City, Maryland (fips = "24510") from 1999 to 2008')
+print(g)
+dev.off()
